@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1" />
+	<link rel="stylesheet" href="themes/theme.min.css" />
+	<link rel="stylesheet" href="jquery.mobile.structure-1.3.2.min.css" />
+	<script src="jquery-1.9.1.min.js"></script>
+	<script src="jquery.mobile-1.3.2.min.js"></script>
+		
+	
+	<script>
+	$(document).ready(function(){
+		
+		
+		$('#btnLogin').click(function(){
+		
+			$.get('http://gcccs.org/seunglee/login.php', {
+				username: $('#un').val(),
+				password: $('#pw').val()
+			}, function(j){
+			
+				console.log(j);
+				
+				if(j == '1'){
+				
+				$('#pStatus').html("Invalid Username/Password");
+				$('#pw').val("");
+					
+				}else{
+					window.location = '#index1';
+					console.log(j);
+					localStorage.setItem("fldLoggedIn", "true");
+					console.log("Logged In Data Successfully Saved");
+					localStorage.setItem("UserLoggedIn",document.getElementById('un').value);
+					console.log("User Logged In Data Successfully Saved");
+					document.getElementById('up_username').innerHTML = "Logged in as "+localStorage.getItem("UserLoggedIn");
+					console.log("Logged in as "+localStorage.getItem("UserLoggedIn"));
+					document.getElementById("un").value = "";
+					document.getElementById("pw").value = "";
+				}
+			});		
+		});
+		
+			
+	
+
+		
+		$('#fld_un').keyup(function(){
+			bawal = "`~!@#$%^&*()-_=+[{]}\|;:'\",<.>/?";
+			username = $('#fld_un').val();
+			for(i in bawal){ username = username.replace(bawal[i], '');}
+			$('#fld_un').val(username);
+		});
+		
+		$('#btnRegister').click(function(){
+			if(($('#fld_pw').val())!=($('#fld_rpw').val())){
+				$('#fld_pw').focus();
+				$('#regStatusPw').html('Password did not matched');
+				
+			}
+			
+			else if($('#fld_un').val()==""){
+				$('#fld_un').focus();
+				$('#regStatusUn').html("");
+				$('#regStatusPw').html("");
+				$('#regStatusEmail').html("");
+				$('#regStatusName').html("");
+				$('#regStatusContact').html("");
+				$('#regStatusUn').html('Username is required');
+				
+			}
+			else if($('#fld_pw').val()==""){
+				$('#fld_pw').focus();
+				$('#regStatusUn').html("");
+				$('#regStatusPw').html("");
+				$('#regStatusEmail').html("");
+				$('#regStatusName').html("");
+				$('#regStatusContact').html("");
+				$('#regStatusPw').html('Password is required');
+				
+			}
+			else if($('#fld_rpw').val()==""){
+				$('#fld_rpw').focus();
+				$('#regStatusUn').html("");
+				$('#regStatusPw').html("");
+				$('#regStatusEmail').html("");
+				$('#regStatusName').html("");
+				$('#regStatusContact').html("");
+				$('#regStatusPw').html('Re-Type Password is required');
+			
+			}
+			else if($('#fld_email').val()==""){
+				$('#fld_email').focus();
+				$('#regStatusUn').html("");
+				$('#regStatusPw').html("");
+				$('#regStatusEmail').html("");
+				$('#regStatusName').html("");
+				$('#regStatusContact').html("");
+				$('#regStatusEmail').html('Email is required');	
+				
+			}
+			else if($('#fld_ln').val()==""){
+				$('#fld_ln').focus();
+				$('#regStatusUn').html("");
+				$('#regStatusPw').html("");
+				$('#regStatusEmail').html("");
+				$('#regStatusName').html("");
+				$('#regStatusContact').html("");
+				$('#regStatusName').html('Last Name is required');
+				
+			}
+			else if($('#fld_fn').val()==""){
+				$('#fld_fn').focus();
+				$('#regStatusUn').html("");
+				$('#regStatusPw').html("");
+				$('#regStatusEmail').html("");
+				$('#regStatusName').html("");
+				$('#regStatusContact').html("");
+				$('#regStatusName').html('First Name is required');
+				
+			}
+			
+			else if($('#fld_contact').val()==""){
+				$('#fld_contact').focus();
+				$('#regStatusUn').html("");
+				$('#regStatusPw').html("");
+				$('#regStatusEmail').html("");
+				$('#regStatusName').html("");
+				$('#regStatusContact').html("");
+				$('#regStatusContact').html('Contact Info is required');
+	
+			}
+
+			
+			
+			else{
+				$.post('http://gcccs.org/seunglee/check.php', {
+						username: $('#fld_un').val()
+					}
+					, function(j){
+						console.log(j);
+					
+						if(j == '1'){
+							$.post('http://gcccs.org/seunglee/test.php', {
+								username: $('#fld_un').val() ,
+								password: $('#fld_pw').val() ,
+								email: $('#fld_email').val() ,
+								lname: $('#fld_ln').val() ,
+								fname: $('#fld_fn').val() ,
+								contact: $('#fld_contact').val() ,
+												
+							}, function(i){
+								
+								window.location = '#dialogRegSuccess';
+								console.log(i);
+								
+							});	
+						}else{
+							$('#fld_un').focus();
+							$('#regStatusUn').html("");
+							$('#regStatusPw').html("");
+							$('#regStatusEmail').html("");
+							$('#regStatusName').html("");
+							$('#regStatusContact').html("");
+							$('#regStatusUn').html('Username already exists');
+						}
+					});			
+			}
+		});
+	});
+	</script>
+	<!---slider--->
+		<link rel="stylesheet" type="text/css" media="screen" href="css/slider.css">
+		<script src="js/jquery-1.7.min.js"></script>
+		<script src="js/tms-0.4.1.js"></script>
+		<!---end slider--->
+		
+		<!---slider--->
+		 <script type="text/javascript">
+		$(document).ready(function(){				   	
+			$('.slider')._TMS({
+				show:0,
+				pauseOnHover:false,
+				prevBu:'.prev',
+				nextBu:'.next',
+				playBu:false,
+				duration:10000,
+				preset:'zoomer',
+				pagination:true,
+				pagNums:false,
+				slideshow:7000,
+				numStatus:false,
+				banners:false,
+				waitBannerAnimation:false,
+				progressBar:false
+			})
+		});
+		</script>
+		<!---end sldier--->
+		<style type="text/css">
+				
+
+			.ui-page, .ui-content, .ui-btn {
+				background: transparent;
+			}
+		</style>
+	
+</head>
+<body>
+
+
+
+<!---index1--->
+<div data-role="page" id="index1">
+		
+			<div data-role="header" data-position="inline">
+			
+			<a href="#nav-panel" ><img src="img/icon.png"img></a>
+			
+				<h1>DOO-DOO</h1>
+				
+					
+			</div>
+		<div data-role="content" data-theme="a" style="zoom: 100%">
+			<br/>
+			
+			
+		<center><img src="img/header.png"></img>
+		<br />
+			<br />
+
+		<p><font size="4">Seung Lee is a family corporation in subic for 10 years. They own Doo-Doo Massage that are located in SBMA, and opens <font color="red">DAILY from MONDAY-FRIDAY( 11am-11pm ).</font></font>
+				</p>
+		
+			<br />
+				
+		    <div id="slide" style="height:100%;width:100%">		
+                <div class="slider" >
+                    <ul class="items">
+                        <li><img src="img/slider-1.jpg" alt=""  /></li>
+                        <li><img src="img/slider-2.jpg" alt="" /></li>
+                        <li><img src="img/slider-3.jpg" alt="" /></li>
+                    </ul>
+              </div>	
+                
+          </div> 
+		</center>
+			
+		
+				
+		</div>
+						
+	<div data-role="panel" data-position="left" data-position-fixed="true" data-display="reveal" id="nav-panel" data-theme="a">
+
+					<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-10px;" class="nav-search">
+						
+												<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+					</ul>
+								
+			</div>
+</div>
+
+<!--services-->
+<div data-role="page" id="services">
+		
+			<div data-role="header" data-position="inline">
+			
+			<a href="#nav-panel" ><img src="img/icon.png" ></img></a>
+			
+				<h1>DOO-DOO</h1>
+						
+			</div>
+			<div data-role="content" data-theme="a">
+			<img src="img/doos.png"></img>
+			<img src="img/serv.png"></img>
+				
+			<br/>
+			<br/>
+			<br/>
+				 <center><font size="10">Shiatsu</font>
+                        <div class="img-border"><img src="img/page2-img1.jpg" alt=""  style="height:100%;width:100%"></img></div></center>
+                        <p align="justify" class="border-1"><font size="5">Shiatsu is Japanese for "finger pressure"; it is a type of alternative medicine consisting of finger and palm pressure, stretches, and other massage techniques some shiatsu practitioners promote it as a way to help people relax and cope with issues such as stress, muscle pain, nausea, anxiety, and depression.</font></p>
+				
+			</div>
+			
+			<div data-role="footer" data-theme="a" data-position="fixed"> 
+			<div data-role="navbar">
+				<ul>
+				   
+					<li><a href="#" data-icon="arrow-l" class="ui-disabled">BACK</a></li>
+					<li><a href="#services4" data-icon="arrow-r" >NEXT</a>
+					 </li>
+				</ul>
+			</div>
+			
+			</div> 
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+				
+						
+					<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+												<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+							
+					</ul>
+		</div>
+</div>
+
+<!--services2-->
+<div data-role="page" id="services2">
+		<div data-role="panel" id="mypanel">
+			
+				</div><!-- /panel -->
+			<div data-role="header" data-position="inline">
+			
+			<a href="#nav-panel" ><img src="img/icon.png"></img></a>
+			
+				<h1>DOO-DOO</h1>
+							
+			</div>
+			<div data-role="content" data-theme="a">
+			<img src="img/doos.png" style="height:100%;width:100%"></img>
+		
+				
+				
+				 <center><br/><font size="6">Foot Spa</font>
+                        <div class="img-border"><img src="img/page2-img5.jpg" alt="" style="height:100%;width:100%"></div></center>
+                        <p align="justify" class="border-1"><font size="5">While various types of reflexology related massage styles focus on the feet, massage of (usually) the soles of the feet is often performed purely for relaxation or recreation.</font></p>
+					<br/>
+					 <center><font size="6">Head and Back</font>
+                        <div class="img-border"><img src="img/page2-img3.jpg" alt="" style="height:100%;width:100%"></div>
+						 <div class="img-border"><img src="img/page2-img3.1.jpg" alt="" style="height:100%;width:100%"></div></center>
+                        <p align="justify" class="border-1"><font size="5">This form of massage covers the back, neck, shoulders, arms, hands and face. Using natural, aromatherapeutic oils, the client lies comfortably face down on a treatment couch, while the masseur uses gentle, flowing pressure strokes to fully relax you. It concludes with a sensitive face massage. Of short duration (usually 30 minutes) it can be adapted to form the basis of a longer massage.</font></p>
+			</div>
+			<div data-role="footer" data-theme="a" data-position="fixed"> 
+			
+			<div data-role="navbar">
+				<ul>
+				   
+					<li><a href="#services4" data-icon="arrow-l" >BACK</a></li>
+					<li><a href="#services3" data-icon="arrow-r" >NEXT</a>
+					</li>
+				</ul>
+			</div>
+			 
+			</div> 
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+				<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+						<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+						
+					</ul>
+			</div>
+		</div>
+		
+<!---services3--->
+<div data-role="page" id="services3">
+		<div data-role="panel" id="mypanel">
+			
+				</div><!-- /panel -->
+			<div data-role="header" data-position="inline">
+			
+				<a href="#nav-panel" ><img src="img/icon.png" ></img></a>
+			
+				<h1>DOO-DOO</h1>
+				
+			</div>
+			<div data-role="content" data-theme="a">
+			<img src="img/doos.png" style="height:100%;width:100%"></img>
+				
+						
+					 
+						<center><font size="6">SPECIALS:</font>
+                        <p><font size="5">
+						Doo Doo Massage:<br/>
+							- Combination of Swedish<br/><br/>
+						Doo Doo Special<br/>
+							-Combination of Swedish Shiatsu and Thai<br/>
+							- Fix 1 1/2<br/><br/>
+						Eucalyptus Oil<br/>
+							-Additional P 50.00<br/><br/>
+						Menthol<br/>
+							-Additional P 50.00<br/><br/>
+						
+						*Home Service within SUBIC Bay Freeport Zone only!</font>
+						</p></center>
+							<br/>
+			</div>
+			<div data-role="footer" data-theme="a" data-position="fixed"> 
+			<div data-role="navbar">
+				<ul>
+				   
+					<li><a href="#services2" data-icon="arrow-l" >BACK</a></li>
+					<li><a href="#" data-icon="arrow-r" class="ui-disabled">NEXT</a>
+					 </li>
+				</ul>
+			</div><!-- /navbar -->
+			 
+			</div> 
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+					<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+					<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+							
+					</ul>
+			</div>
+		</div>
+
+<!---services4--->
+<div data-role="page" id="services4">
+		
+			<div data-role="header" data-position="inline">
+			
+		<a href="#nav-panel" ><img src="img/icon.png" ></img></a>
+			
+				<h1>DOO-DOO</h1>
+						
+			</div>
+			<div data-role="content" data-theme="a">
+			<img src="img/doos.png" style="height:100%;width:100%"></img>
+			
+					
+			<center><font size="6">Swedish</font>
+                        <div class="img-border"><img src="img/page2-img2.jpg" alt="" style="height:100%;width:100%"></div></center>
+                        <p align="justify" class="border-1"><font size="5">Swedish massage therapy is the modality that comes to mind when most people think about massage. As the best-known type of bodywork performed today, one of the primary goals of the Swedish massage technique is to relax the entire body. This is accomplished by rubbing the muscles with long gliding strokes in the direction of blood returning to the heart. But Swedish massage therapy goes beyond relaxation. Swedish massage is exceptionally beneficial for increasing the level of oxygen in the blood, decreasing muscle toxins, improving circulation and flexibility while easing tension.</font></p>
+						<br/>
+						 <center><font size="6">Thai Massage Theraphy</font>
+                        <div class="img-border"><img src="img/page2-img4.jpg" alt="" style="height:100%;width:100%"></div></center>
+                        <p align="justify" class="border-1"><font size="5">This form of massage covers the back, neck, shoulders, arms, hands and face. Using natural, aromatherapeutic oils, the client lies comfortably face down on a treatment couch, while the masseur uses gentle, flowing pressure strokes to fully relax you. It concludes with a sensitive face massage. Of short duration (usually 30 minutes) it can be adapted to form the basis of a longer massage.</font></p>
+					
+			</div>
+			<div data-role="footer" data-theme="a" data-position="fixed"> 
+			<div data-role="navbar">
+				<ul>
+				   
+					<li><a href="#services" data-icon="arrow-l" >BACK</a></li>
+					<li><a href="#services2" data-icon="arrow-r" >NEXT</a>
+					 </li>
+				</ul>
+			</div><!-- /navbar -->
+			 
+			</div> 
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+				
+						
+					<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+						<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+							
+					</ul>
+			</div>
+</div>
+
+<!---mem--->
+<div data-role="page" id="mem" >
+		<div data-role="panel" id="mypanel">
+			
+				</div><!-- /panel -->
+			<div data-role="header" data-position="inline">
+				<a href="#nav-panel" ><img src="img/icon.png" style="height:100%;width:100%"></img></a>
+			
+				<h1>DOO-DOO</h1>
+				
+				
+			
+			<div data-role=navbar>
+				
+      
+    </div>
+			</div>
+			<div data-role="content" data-theme="a">
+			<center><img src="img/offer.png" style="height:100%;width:100%"></img></center>
+				
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<center>
+			<img src="img/card2.jpg" style="height:100%;width:100%"></img>
+			<br/>
+			<br/>
+			<img src="img/card.jpg" style="height:100%;width:100%"></img>
+				
+						<h1>Special Discount Card: <br/>   Php 2,500</h1>
+						<br/>
+						<strong><h1>Inclusions:<h1></strong>
+					<br/>
+					<br/>
+					<font size="5">
+						• Transferable<br/>
+						• Less 500php for the members<br/>
+						• 2 months Valid from the date of issue<br/>
+						• Consumable 10hours of services offered<br/>
+					</font>
+					<!-- for pliers and promos
+					<li>• Free shuttle for group of 5persons minimum</li> -->
+					
+					</center>
+					<br/>
+					<br/>
+					<center>
+						<h1>Policies and Procedures</h1>
+					<br/>
+						<p align="center"><font size="5">• The company will not be held liable for any loss, damage and tampering of card.</font></p>
+						<p align="center"><font size="5">• The Special Discount Card is not refundable</font></p>
+					<br/>
+					<br/>
+				
+					
+					
+					
+					
+					
+				
+			</div>
+			<div data-role="footer" data-theme="a" data-position="fixed"> 
+			<h4></h4>
+			
+			 
+			</div> 
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+					
+						<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+						<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+														
+					</ul>
+			</div>
+		</div>
+
+<!---Therapist Schedule--->
+<div data-role="page" id="therapist">
+		<div data-role="panel" id="mypanel">
+			
+				</div><!--panel -->
+			<div data-role="header" data-position="inline">
+			
+				<a href="#nav-panel" ><img src="img/icon.png"></img></a>
+			
+				<h1>DOO-DOO</h1>
+				
+			</div>
+			
+		
+			
+			<div data-role="content" data-theme="a" >
+				
+					
+			<center>
+				
+				<table border="1"cellpadding= "0">
+					<th colspan="6"><font size="3">THERAPISTS' SCHEDULE</font></th>
+					<tr>
+					<th><font size="1">Massage Attendant</font></th>
+					<th><font size="1">Monday</font></th>
+					<th><font size="1">Tuesday</font></th>
+					<th><font size="1">Wednesday</font></th>
+					<th><font size="1">Thursday</font></th>
+					<th><font size="1">Friday</font></th>
+				</tr>
+				<tr >
+					<td>1.<a href="#a" data-rel="popup" data-position-to="window" data-theme="b" data-inline="true"><font size="3"> Linda </font></a></td>
+					<td bgcolor="#FF3300"><center> <font size="1">off</center></font></td>
+					<td bgcolor="#FF3300"><center> <font size="1">off</center></font></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font> </td>
+					
+				</tr>
+				<tr >
+					<td>2. <a href="#b" data-rel="popup" data-position-to="window" data-theme="b" data-inline="true"> <font size="3">Venus </font></a></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					<td bgcolor="#FF3300"><center> <font size="1">off</font></center></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					
+				</tr>
+				<tr >
+					<td>3. <a href="#c" data-rel="popup" data-position-to="window" data-theme="b" data-inline="true"><font size="3">Richelle </font></a></td>
+					<td bgcolor="#FF3300"><center> <font size="1">off</font></center></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					
+				</tr>
+				<tr>
+					<td>4. <a href="#d" data-rel="popup" data-position-to="window" data-theme="b" data-inline="true"><font size="3">Jane </font></a></td>
+					<td><font size="1">present</font></td>
+					<td bgcolor="#FF3300"><center> <font size="1">off</font></center></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					
+				</tr>
+				<tr>
+					<td>5. <a href="#e" data-rel="popup" data-position-to="window" data-theme="b" data-inline="true"><font size="3"> Anna </font></a></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					<td bgcolor="#FF3300"><center> <font size="1">off</font></center></td>
+					
+				</tr>
+				<tr>
+					<td>6. <a href="#f" data-rel="popup" data-position-to="window" data-theme="b" data-inline="true"> <font size="3">Sheryl </font></a></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					<td><center/><font size="1">present</font></td>
+					<td bgcolor="#FF3300"><center> <font size="1">off</font></center></td>
+					<td><center/><font size="1">present</font></td>
+					
+				</tr>
+				
+				</table>
+			</center>	
+			
+			<br/>
+				<br/>
+				<br/>
+			<a href="services.html"><img src="images/serv.jpg" style="height:100%;width:100%" /></a>
+					
+						
+			</div>
+			<div data-role="popup" id="a" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"><font size="100">Close</font></a><img src="images/rosalinda.jpg" style="height:100%;width:100%"></img>
+			</div>
+			<div data-role="popup" id="b" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"><font size="100">Close</font></a><img src="images/venus.JPG"  alt="Photo portrait" style="height:100%;width:100%" >
+			</div>
+			<div data-role="popup" id="c" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"><font size="100">Close</font></a><img src="images/ebona.jpg"  alt="Photo portrait" style="height:100%;width:100%">
+			</div>
+			<div data-role="popup" id="d" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"><font size="100">Close</font></a><img src="images/jane.JPG"  alt="Photo portrait" style="height:100%;width:100%">
+			</div>
+			<div data-role="popup" id="e" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"><font size="100">Close</font></a><img src="images/rosalinda.jpg"  alt="Photo portrait" style="height:100%;width:100%">
+			</div>
+			<div data-role="popup" id="f" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"><font size="100">Close</font></a><img src="images/she.JPG"  alt="Photo portrait" style="height:100%;width:100%">
+			</div>
+			<div data-role="popup" id="g" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"><font size="100">Close</font></a><img src="images/ad.JPG"  alt="Photo portrait" style="height:100%;width:100%">
+			</div>
+			<div data-role="popup" id="h" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"><font size="100">Close</font></a><img src="images/ebona.jpg"  alt="Photo portrait" style="height:100%;width:100%">
+			</div>
+		
+		
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+				<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+						<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+							
+					</ul>
+			</div>
+</div>
+
+<!---reserve--->	
+<div data-role="page" id="reserve">
+			<div data-role="header" data-position="inline">
+			
+			<a href="#nav-panel" ><img src="img/icon.png"></img></a>
+		
+			<h1>DOO-DOO</h1>
+			
+			
+			</div>
+			
+			<div data-role="content" data-theme="a">
+			<br/>
+			
+		
+				<center><img src="img/logo	.png" style="height:100%;width:100%"></img></center>
+				
+				<center><h1>Reservation Form</h1></center>
+				<h4>All fields with asterisk (*) are required.</h4>
+				<center><h2><a href="#rules">Rules and Conditions</a></h2></center>
+				<br/>
+			<font size="5">
+				<label><strong>*</strong>Firstname:</label>
+				<input type="text" id="fname" style="font-size:25px"/>
+				
+				<label><strong>*</strong>Lastname:</label>
+				<input type="text" id="lname" style="font-size:25px"/>
+				
+								
+				<label><strong>*</strong>Preffered Date:</label>
+				<input type="date" id="sdate" style="font-size:25px"/>
+				
+				<label><strong>*</strong>Preffered Time:</label>
+				<input type="time" id="stime" style="font-size:25px"/>
+								
+				<fieldset data-role="controlgroup">
+				<legend><strong>*</strong>Services:</legend>
+				<label><input type="checkbox" name="services" value=""/>Swedish Massage<br/></label>
+				<label><input type="checkbox" name="services" value=""/>Eucalyptus Oil Massage<br/></label>
+				<label><input type="checkbox" name="services" value=""/>Shiatsu Massage<br/></label>
+				<label><input type="checkbox" name="services" value=""/>Doo-Doo Massage<br/></label>
+				<label><input type="checkbox" name="services" value=""/>Doo-Doo Special<br/></label>
+				<label><input type="checkbox" name="services" value=""/>Head & Back Massage<br/></label>
+				<label><input type="checkbox" name="services" value=""/>Foot Massage<br/></label>
+				<label><input type="checkbox" name="services" value=""/>Thai Massage<br/></label>
+				</fieldset>
+				<br/>
+				
+				<label><strong>*</strong>Total number of people:</label>
+				<input type="number" name="total" style="font-size:25px"/>
+				
+				<label><strong>*</strong>Therapists:</label>
+				<select id="therapist" style="font-size:25px">
+				<option value=""></option>
+					<option value="Linda">Linda</option>
+					<option value="Albania">Venus</option>
+					<option value="Algeria">Richelle</option>
+					<option value="Andorra">Jane</option>
+					<option value="Angola">Anna</option>
+					<option value="Antigua and Barbuda">Sheryl</option>
+				</select>
+				
+			</font>
+				<center><a href="#dialogResSuccess"><button>SUBMIT</button></a></center>
+				
+
+				<br/>
+				<br/>
+				
+			</div>
+			
+			<div data-role="footer" data-theme="a" data-position="fixed"> 
+				<h4></h4> 
+			</div> 
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+				<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+						<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+							
+					</ul>
+			</div>
+		</div>
+
+<!-- Reservation Success Page -->
+<div data-role="page" data-theme="d" id="dialogResSuccess">
+	<div data-role="header">
+		<h1>DOO-DOO</h1>
+	</div>
+	
+	<div data-role="content" >
+		<div style="padding:10px 20px;">
+		<img src="img/logo.png"></img>
+	
+
+		<center>
+		<br/><br/>
+		<h2>Your reservation is already send!</h2>
+		</center>
+		</div>
+
+	<div data-role="footer" data-position="fixed" data-theme="a">
+	<div data-role="navbar">
+			   
+		<center><a href="#index1">HOME</a></center>
+		
+		
+	</div>
+	
+	</div>
+	
+	
+</div>
+</div>
+
+<!---rules--->
+<div data-role="page" id="rules">
+		
+			<div data-role="header" data-position="inline">
+			
+			<a href="#nav-panel" ><img src="img/icon.png"></img></a>
+		
+			<h1>SEUNGLEE</h1>
+			
+			
+			</div>
+			
+			<div data-role="content" data-theme="a">
+			<br/>
+			
+		<p align="justify">
+			Rules and Conditions upon customer's reservation:</br>
+			</br>
+				1. Customers should come 15 minutes earlier on his time schedule otherwise reservation will be void.</br>
+			</br>
+				2. Customers should notify the management if they will be late on their time schedule to avoid conflicts in rules no.1.</br>
+			</br>
+				3. Wait for confirmation for their reservation coming from the management that their reservation has been received and approved.</br>
+			</br>
+				4. Customers should be online to receive confirmation.</br>
+			</br>
+				5. You will receive a confirmation within 24 hours from the date you reserved, if you will not receive any confirmation please contact ( call/text) the management</br>
+			</br>
+				6.  We are require cancellation notification a day prior the reservation time.</br>
+			</br>
+			</br>
+			<center>
+				STRICTLY FOLLOW</br>
+			</br>
+				BY: MANAGEMENT</br>
+			</center>
+								
+			</p>
+			</div>
+			
+			<div data-role="footer" data-theme="a" data-position="fixed"> 
+			<div data-role="navbar">
+				<ul>
+				<li><a href="#reserve" data-icon="arrow-l" >BACK</a></li>
+				</ul>
+			</div> 
+			</div>
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+				<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+						<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+														
+					</ul>
+			</div>
+		</div>
+
+<!---feedback form--->
+	<div data-role="page" id="feed">
+		
+			<div data-role="header" data-position="inline">
+			
+			<a href="#nav-panel" ><img src="img/icon.png"></img></a>
+				<h1>SEUNGLEE</h1>
+				
+			</div>
+				
+			<div data-role="content" data-theme="a">
+			<img src="img/logo.png" style="height:100%;width:100%" ></img>
+			<form action="mailto:madeth@gmail.com" method="post" enctype="text/plain" >
+				<label><font size="10">Name:</font> </label>
+					<input type="text" id="fname" style="font-size:25px"/>
+				<label><font size="10"> Message:</font> </label>
+					
+						<textarea rows="50" cols="100" name="comments" width="100" height="500" style="font-size:25px"></textarea>
+											
+						<input type="submit" name="Submit" value="Submit" style="border:1px solid #000000;" />
+				</form>
+			</div>
+			<div data-role="footer" data-theme="a" data-position="fixed"> 
+				<h1></h1> 
+			</div> 
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+					<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+						
+						<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>							
+							
+					</ul>
+			</div>
+		</div>
+		
+<!---contact--->
+<div data-role="page" id="contact">
+		
+		<div data-role="header" data-position="inline">
+			
+				<a href="#nav-panel" ><img src="img/icon.png"> </img></a>
+			
+				<h1>DOO-DOO</h1>
+						
+		</div>
+			
+			<div data-role="content" data-theme="a" >
+						
+			<img src="img/about.png" style="height:100%;width:100%"></img>
+			<br/>
+			<center><a href="https://www.facebook.com/DooDooMassage"><img src="img/follow.jpg" style="height:100%;width:100%"></img></a></center>
+			<br/>
+			<center><a href="#dev" style="width:75%" data-role="button" data-theme="a" data-icon="star" >Developers</a></center>
+			
+			</div>
+			 
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+					<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+						<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+					</ul>
+			</div>
+		</div>
+		
+<!---developers--->
+<div data-role="page" id="dev">
+		
+		<div data-role="header" data-position="inline">
+			
+				<a href="#nav-panel" ><img src="img/icon.png"> </img></a>
+			
+				<h1>DOO-DOO</h1>
+						
+		</div>
+			
+			<div data-role="content" data-theme="a" >
+						
+			
+			<center><a href="#contact" style="width:75%" data-role="button" data-theme="a" data-icon="star" >LOCATION</a></center>
+					
+			<center>
+			<a href="http://www.gordoncollegeccs.edu.ph/"><img src="images/gcccs.png"style="height:100%;width:100%"></img></a>
+			<h3>DEVELOPERS:<br/><br/>
+			(Team e-S1NTAX)<br/>
+			MARY DITH ALEGRE<br/>
+			ADELYN FLOR GAYONDATO<br/>
+			ZYRONE TALA<br/>
+			</h3>
+			</center>
+			</div>
+			 
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+					<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+						<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+					</ul>
+			</div>
+		</div>
+<!---about-->
+<div data-role="page" id="about">
+		
+			<div data-role="header" data-position="inline">
+				<a href="#nav-panel" ><img src="img/icon.png"></img></a>
+			
+				<h1>DOO-DOO</h1>
+			
+			</div>
+			
+			<div data-role="content" data-theme="a" >
+				<p><font size="5">
+				<center>About Doo-Doo Mobile Reservation</font><br/></center>
+				<br/>
+				DooDoo Mobile Reservation is free online application which means anyone is free to download it using your Z10 in blackberry world. You must connected online to make a reservation. 
+				<br/>	<br/>
+				Step in reservation:<br/>
+				1. Sign up an account to make a reservation.<br/>
+				2. Sign in using your account.<br/>
+				3. Fill up  required fields.<br/>
+				4. Read rules and conditions upon your reservation.<br/>
+				5. Wait for confirmation.<br/>
+				<br/><br/>
+				Features:<br/>
+				1. Online reservation.<br/>
+				2. Available therapist schedule.<br/>
+				3. Doo-Doo services.<br/>
+				4. Special card and promos.<br/>
+				5. Contacts<br/>
+				6. About<br/>
+				</p>
+			</div>
+			<div data-role="footer" data-theme="a" data-position="fixed"> 
+				<h4></h4> 
+			</div> 
+			
+			<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+
+				
+						
+					<ul id="menu" data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+						<center><img src="img/icon1.0.png"></img></center>
+												
+						</br>
+						<li>
+						<font id="up_username"></font>
+						</li>
+						<li>
+							<a href="#index1"><img src="img/home.jpg"style="height:1280px;width:768px"><font size="5">HOME</font></a>
+						</li>
+						<li>
+							<a href="#services"><img src="img/icon8.jpg" style="height:1280px;width:768px"><font size="5">SERVICES</font></a>
+						</li>
+						<li>
+							<a href="#mem"><img src="img/icon3.jpg"style="height:1280px;width:768px"><font size="5">MEMBERSHIP</font></a>
+						</li>
+						<li>
+							<a href="#therapist"><img src="img/icon9.jpg"style="height:1280px;width:768px"><font size="5">THERAPIST <br/> SCHEDULE</font></a>
+						</li>
+						<li >
+							<a href="#reserve"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">RESERVATION</font></a>
+						</li>
+						<li >
+							<a href="#feed"><img src="img/icon1.jpg"style="height:1280px;width:768px"><font size="5">FEEDBACK<br/> FORM</font></a>
+						</li>
+						<li >
+							<a href="#contact"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">CONTACT</font></a>
+						</li>
+						<li >
+							<a href="#about"><img src="img/icon7.jpg"style="height:1280px;width:768px"><font size="5">ABOUT</font></a>
+						</li>
+						
+						<li>
+						<a href="#popupLogin" onClick="btnLogOut()" data-role="button" data-theme="d"  >LOG OUT</a>
+						</li>
+							
+					</ul>
+			</div>
+		</div>
+
+</body>
+</html>
