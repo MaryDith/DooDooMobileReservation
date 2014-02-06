@@ -22,7 +22,7 @@
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
 
-	
+	<application android:debuggable="true"/>
     <icon src="icon.jpg" />
    
     <gap:splash src="splash.jpg" />
