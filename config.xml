@@ -7,7 +7,8 @@
         version   = "1.1.0">
 
     <name>Doo-Doo Mobile Reservation</name>
-	
+	<application android:icon="icon.jpg
+        android:debuggable="true"/>
 
     <author href="http://gcccs.org/seunglee/" gap:copyright="Copyright 2013">es1ntax team</author>
  
@@ -22,7 +23,8 @@
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
 
-	<application android:debuggable="true"/>
+	
+	
     <icon src="icon.jpg" />
    
     <gap:splash src="splash.jpg" />
