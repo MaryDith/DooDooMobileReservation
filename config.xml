@@ -4,17 +4,16 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "Doo-Doo"
-        version   = "1.1.0"
-		versionCode = "22">
+        version   = "1.1.0">
 
     <name>Doo-Doo Mobile Reservation</name>
 	
 
-    <author href="http://gcccs.org/seunglee/" gap:copyright="Copyright 2013">es1ntax team</author>
+    <author href="http://gcccs.org/seunglee/" rim:copyright="Copyright 2013">es1ntax team</author>
  
     <preference name="permissions" value="none"/>
 	
-	
+	<content src="index.html" />
 	
     <preference name="phonegap-version" value="2.9.0" />          
     <preference name="orientation" value="portrait" />
@@ -23,8 +22,7 @@
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
 
-	
-	
+
     <icon src="icon.jpg" />
    
     <gap:splash src="splash.jpg" />
@@ -33,7 +31,7 @@
         <param name="android-package" value="portrait" />
     </feature>
 
-	
+
     <access origin="http://127.0.0.1*"/>
 
 </widget>
