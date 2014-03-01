@@ -342,17 +342,7 @@
 				</p>
 		
 			<br />
-				
-		    <div id="slide" style="height:100%;width:100%">		
-                <div class="slider" >
-                    <ul class="items">
-                        <li><img src="img/slider-1.jpg" alt=""  /></li>
-                        <li><img src="img/slider-2.jpg" alt="" /></li>
-                        <li><img src="img/slider-3.jpg" alt="" /></li>
-                    </ul>
-              </div>	
-                
-          </div> 
+			<img src="img/slider-1.jpg" alt=""  />
 		</center>
 			
 		
@@ -1103,12 +1093,11 @@
 			</div>
 				
 			<div data-role="content" data-theme="a">
-				<center>CHAT FORM</center>
+				<center>CHAT FORM
+				<br/>
+				<font size="1">(NOTE: WHEN YOU CLOSE THIS CHAT ALL THE MESSAGES WILL BE DELETE IMMEDIATELY.)</font></center>
 			<!--Enter Chat and press enter-->
-
-				</br>
-				</br>
-				<label>Name:</label><input id="regStatusUn" data-theme="b"/>
+			
 				</br>
 				<div><label>Chat:</label><input id="input" placeholder="you-chat-here" data-theme="b"/></div>
 				 
@@ -1121,7 +1110,7 @@
 						var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'chat';
 						PUBNUB.subscribe({
 						channel : channel,
-						callback : function(text) { box.innerHTML = (''+text).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML }
+						callback : function(text) { box.innerHTML = ('Anonymous: '+text).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML }
 						});
 						PUBNUB.bind( 'keyup', input, function(e) {
 						(e.keyCode || e.charCode) === 13 && PUBNUB.publish({
