@@ -4,8 +4,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "Doo-Doo"
-        version   = "1.1.0"
-		versionCode = "23">
+        version   = "1.2.0"
+		versionCode = "24">
 
     <name>Doo-Doo Mobile Reservation</name>
 	
