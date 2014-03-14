@@ -150,12 +150,8 @@
 							});	
 						}else{
 							
-							$('#regStatusUn').html("");
-							$('#regStatusPw').html("");
-							$('#regStatusEmail').html("");
-							$('#regStatusName').html("");
-							$('#regStatusContact').html("");
-							$('#regStatusUn').html('Username already exists');
+							window.location = '#dialogRegSuccess';
+							console.log(i);
 						}
 					});			
 			}
