@@ -5,7 +5,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "Doo-Doo"
         version   = "1.2.0"
-		versionCode = "25">
+		versionCode = "26">
 
     <name>Doo-Doo Mobile Reservation</name>
 	
